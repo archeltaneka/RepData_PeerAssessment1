@@ -15,6 +15,7 @@ Before starting the project, let's import the **ggplot2** libraries for plotting
 
 ```r
 library(ggplot2)
+library(knitr)
 ```
 ## Loading and preprocessing the data
 The data itself can be found inside the zipped file `activity.zip`. Extract it and we will get the `activity.csv` file
@@ -87,7 +88,11 @@ First, let's count the number of `NA` in our data:
 
 
 ```r
-na_count <- sum(is.na(activity$steps))
+sum(is.na(activity$steps))
+```
+
+```
+## [1] 2304
 ```
 
 Now, devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc. Then, create a new dataset that is equal to the original dataset but with the missing data filled in.
@@ -124,7 +129,7 @@ For this part, we should create a new factor variable which divide the data into
 ```r
 activity$date <- as.Date(strptime(activity$date, format='%Y-%m-%d'))
 activity$datetype <- sapply(activity$date, function(x) {
-  if(weekdays(x) == 'Sábado' | weekdays(x) == 'Domingo') {
+  if(weekdays(x) == 'Saturday' | weekdays(x) == 'Sunday') {
     y <- 'Weekend'
   } else {
     y <- 'Weekday'
